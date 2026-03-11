@@ -176,7 +176,7 @@
             <div class="secondary-text">Material designer</div>
             
             <div class="image-time-row">
-                <img src="https://i.postimg.cc/PrCCj3X0/IMG-20251125-004212-657.jpg" alt="Profile" class="profile-image">
+                <img src="avatarka.jpg" alt="Profile" class="profile-image">
                 
                 <div class="time-wrapper">
                     <div class="time-label">местное время</div>
@@ -201,7 +201,6 @@
             const display = document.getElementById('timeDisplay');
             const warning = document.getElementById('warningText');
             
-            // Получаем время именно для Москвы
             const now = new Date();
             const moscowTime = new Intl.DateTimeFormat('ru-RU', {
                 timeZone: 'Europe/Moscow',
@@ -215,15 +214,12 @@
             const m = moscowTime.find(p => p.type === 'minute').value;
             const s = moscowTime.find(p => p.type === 'second').value;
 
-            // Выводим через точку, как ты хотел
             display.textContent = `${h}.${m}.${s}`;
 
-            // Логика "Не писать" (00:00 - 08:59)
             const hourInt = parseInt(h);
             warning.style.display = (hourInt >= 0 && hourInt < 9) ? 'block' : 'none';
         }
 
-        // Запуск сразу и интервал
         updateTime();
         setInterval(updateTime, 1000);
 
@@ -251,4 +247,3 @@
     </script>
 </body>
 </html>
-
