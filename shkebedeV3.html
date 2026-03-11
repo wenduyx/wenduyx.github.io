@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material Design 3 - Shkebede</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @font-face {
+            font-family: 'Google Sans';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Google Sans Regular'), local(GoogleSans-Regular), url(https://fonts.gstatic.com/s/googlesans/v5/4UaGrENHsxJlGDuGo1OIlL3Owp4.woff2) format("woff2");
+        }
+        
+        @font-face {
+            font-family: 'Google Sans';
+            font-style: normal;
+            font-weight: 500;
+            src: local('Google Sans Medium'), local('GoogleSans-Medium'), url(https://fonts.gstatic.com/s/googlesans/v11/4UabrENHsxJlGDuGo1OIlLU94YtzCwY.woff2) format('woff2');
+        }
+
+        :root {
+            --md-sys-color-background: #1c1b1f;
+            --md-sys-color-surface: #2b2930;
+            --md-sys-color-on-surface: #e6e1e5;
+            --md-sys-color-on-surface-variant: #cac4d0;
+            --md-sys-color-primary-container: #4f378b;
+            --md-sys-color-on-primary-container: #eaddff;
+            --md-sys-color-error: #f2b8b5;
+            --md-sys-color-outline: #49454f;
+            --border-radius-large: 28px;
+            --border-radius-full: 100px;
+        }
+
+        body {
+            background-color: var(--md-sys-color-background);
+            color: var(--md-sys-color-on-surface);
+            font-family: 'Google Sans', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .top-card {
+            background-color: var(--md-sys-color-surface);
+            padding: 24px;
+            border-radius: var(--border-radius-large);
+        }
+
+        .main-text {
+            font-size: 28px;
+            font-weight: 500;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+
+        .hashtag { color: #ffb4ab; font-weight: 500; }
+
+        .secondary-text {
+            color: var(--md-sys-color-on-surface-variant);
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .image-time-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .profile-image {
+            width: 110px;
+            height: 110px;
+            object-fit: cover; 
+            border-radius: 24px;
+        }
+
+        .time-wrapper { text-align: right; }
+
+        .time-label {
+            font-size: 12px;
+            color: var(--md-sys-color-on-surface-variant);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .local-time {
+            font-size: 32px;
+            font-weight: 400;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .warning-text {
+            color: var(--md-sys-color-error);
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            margin-top: 8px;
+            display: none;
+        }
+        
+        .action-button {
+            width: 100%;
+            padding: 18px;
+            background-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            border: none;
+            border-radius: var(--border-radius-full);
+            font-size: 16px;
+            font-family: 'Google Sans', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .action-button:active { transform: scale(0.97); }
+
+        .social-row {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin: 8px 0;
+        }
+
+        .social-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background-color: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-size: 24px;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .social-btn:active { transform: scale(0.9); }
+
+        .fact-container {
+            display: none; 
+            background-color: var(--md-sys-color-surface);
+            padding: 20px;
+            border-radius: var(--border-radius-large);
+            font-size: 16px;
+            line-height: 1.5;
+            border: 1px solid var(--md-sys-color-outline);
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="top-card">
+            <div class="main-text">Шкебеде <span class="hashtag">#victim</span></div>
+            <div class="secondary-text">Material designer</div>
+            
+            <div class="image-time-row">
+                <img src="https://i.postimg.cc/PrCCj3X0/IMG-20251125-004212-657.jpg" alt="Profile" class="profile-image">
+                
+                <div class="time-wrapper">
+                    <div class="time-label">местное время</div>
+                    <div class="local-time" id="timeDisplay">00.00.00</div>
+                    <div class="warning-text" id="warningText">не писать!</div>
+                </div>
+            </div>
+        </div>
+
+        <button class="action-button" id="getFactBtn">Получить рандомный факт</button>
+
+        <div class="social-row">
+            <a href="https://t.me/Bozhechtozaidiot" target="_blank" class="social-btn"><i class="fa-brands fa-telegram"></i></a>
+            <a href="https://www.tiktok.com/@privet_gt" target="_blank" class="social-btn"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+
+        <div class="fact-container" id="factOutput"></div>
+    </div>
+
+    <script>
+        function updateTime() {
+            const display = document.getElementById('timeDisplay');
+            const warning = document.getElementById('warningText');
+            
+            // Получаем время именно для Москвы
+            const now = new Date();
+            const moscowTime = new Intl.DateTimeFormat('ru-RU', {
+                timeZone: 'Europe/Moscow',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            }).formatToParts(now);
+
+            const h = moscowTime.find(p => p.type === 'hour').value;
+            const m = moscowTime.find(p => p.type === 'minute').value;
+            const s = moscowTime.find(p => p.type === 'second').value;
+
+            // Выводим через точку, как ты хотел
+            display.textContent = `${h}.${m}.${s}`;
+
+            // Логика "Не писать" (00:00 - 08:59)
+            const hourInt = parseInt(h);
+            warning.style.display = (hourInt >= 0 && hourInt < 9) ? 'block' : 'none';
+        }
+
+        // Запуск сразу и интервал
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        const factsList = [
+            "Факт №1: \"Моча отбеливает зубы\" Сосницкий Д.И.", 
+            "Факт №2: Сонуки мой брадар, просто знайте это", 
+            "Факт №3: Карасю пасиба, без него я бы не смог разобраться с этой хуйней",
+            "Факт №4: Изначально я хотел брать домен, но гитхаб пейджс засейвил", 
+            "Факт №5: Мне кажется, какой то из этих фактов - врёт🤔",
+            "Факт №6: Скоро на этом сайте будут комментарии", 
+            "Факт №7: Этот факт я написал после того как облился чаем"
+        ];
+
+        const btn = document.getElementById('getFactBtn');
+        const output = document.getElementById('factOutput');
+
+        btn.addEventListener('click', () => {
+            output.style.display = 'none';
+            setTimeout(() => {
+                const randomFact = factsList[Math.floor(Math.random() * factsList.length)];
+                output.textContent = randomFact;
+                output.style.display = 'block';
+            }, 300);
+        });
+    </script>
+</body>
+</html>
+
