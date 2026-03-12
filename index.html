@@ -12,7 +12,6 @@
             font-weight: 400;
             src: local('Google Sans Regular'), local(GoogleSans-Regular), url(https://fonts.gstatic.com/s/googlesans/v5/4UaGrENHsxJlGDuGo1OIlL3Owp4.woff2) format("woff2");
         }
-        
         @font-face {
             font-family: 'Google Sans';
             font-style: normal;
@@ -20,18 +19,35 @@
             src: local('Google Sans Medium'), local('GoogleSans-Medium'), url(https://fonts.gstatic.com/s/googlesans/v11/4UabrENHsxJlGDuGo1OIlLU94YtzCwY.woff2) format('woff2');
         }
 
+        /* ТЕМНАЯ ТЕМА (Базовая) */
         :root {
             --md-sys-color-background: #1c1b1f;
-            --md-sys-color-surface: #2b2930;
+            --md-sys-color-surface: #211f26;
             --md-sys-color-on-surface: #e6e1e5;
             --md-sys-color-on-surface-variant: #cac4d0;
             --md-sys-color-primary-container: #4f378b;
             --md-sys-color-on-primary-container: #eaddff;
+            --md-sys-color-secondary-container: #332d41;
+            --md-sys-color-on-secondary-container: #e8def8;
             --md-sys-color-error: #f2b8b5;
-            --md-sys-color-outline: #49454f;
-            
-            --border-radius-large: 28px;
-            --border-radius-full: 100px;
+            --md-sys-color-primary: #d0bcff;
+
+            --radius-xl: 28px;
+            --radius-xs: 8px;
+        }
+
+        /* СВЕТЛАЯ ТЕМА */
+        body.light-theme {
+            --md-sys-color-background: #fef7ff;
+            --md-sys-color-surface: #f3edf7;
+            --md-sys-color-on-surface: #1d1b20;
+            --md-sys-color-on-surface-variant: #49454f;
+            --md-sys-color-primary-container: #eaddff;
+            --md-sys-color-on-primary-container: #21005d;
+            --md-sys-color-secondary-container: #e8def8;
+            --md-sys-color-on-secondary-container: #1d192b;
+            --md-sys-color-error: #b3261e;
+            --md-sys-color-primary: #6750a4;
         }
 
         body {
@@ -44,6 +60,7 @@
             justify-content: center;
             min-height: 100vh;
             box-sizing: border-box;
+            transition: background-color 0.3s ease;
         }
 
         .container {
@@ -51,157 +68,156 @@
             max-width: 400px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 12px;
         }
 
+        /* --- Карточка профиля --- */
         .top-card {
             background-color: var(--md-sys-color-surface);
             padding: 24px;
-            border-radius: var(--border-radius-large);
+            border-radius: var(--radius-xl) var(--radius-xl) var(--radius-xs) var(--radius-xs);
+            border: none; /* Обводка убрана */
+            transition: background-color 0.3s ease;
         }
 
-        .main-text {
-            font-size: 28px;
-            font-weight: 500;
-            letter-spacing: -0.5px;
-            margin-bottom: 4px;
-        }
-
-        .hashtag { color: #ffb4ab; font-weight: 500; }
-
+        .main-text { font-size: 28px; font-weight: 400; margin-bottom: 4px; }
+        .hashtag { color: var(--md-sys-color-primary); font-weight: 500; }
         .secondary-text {
             color: var(--md-sys-color-on-surface-variant);
-            font-size: 16px;
-            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 24px;
         }
 
-        .image-time-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-
+        .image-time-row { display: flex; justify-content: space-between; align-items: center; }
         .profile-image {
-            width: 110px;
-            height: 110px;
+            width: 96px;
+            height: 96px;
             object-fit: cover; 
-            border-radius: 24px;
+            border-radius: var(--radius-xl);
         }
 
         .time-wrapper { text-align: right; }
-
-        .time-label {
-            font-size: 12px;
-            color: var(--md-sys-color-on-surface-variant);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-        }
-
-        .local-time {
-            font-size: 32px;
-            font-weight: 400;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .warning-text {
-            color: var(--md-sys-color-error);
-            font-size: 12px;
-            font-weight: 500;
-            text-transform: uppercase;
-            margin-top: 8px;
-            display: none;
-        }
+        .time-label { font-size: 11px; font-weight: 500; color: var(--md-sys-color-primary); text-transform: uppercase; }
+        .local-time { font-size: 32px; font-weight: 400; font-variant-numeric: tabular-nums; }
+        .warning-text { color: var(--md-sys-color-error); font-size: 12px; font-weight: 500; display: none; }
         
+        /* --- Кнопка (Текст 18px) --- */
         .action-button {
             width: 100%;
-            padding: 18px;
+            padding: 20px;
             background-color: var(--md-sys-color-primary-container);
             color: var(--md-sys-color-on-primary-container);
             border: none;
-            border-radius: var(--border-radius-full);
-            font-size: 16px;
-            font-family: 'Google Sans', sans-serif;
+            border-radius: var(--radius-xs) var(--radius-xs) var(--radius-xl) var(--radius-xl);
+            font-size: 18px; 
             font-weight: 500;
             cursor: pointer;
-            transition: transform 0.1s;
+            transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
         }
+        .action-button:active { transform: scale(0.98); }
 
-        .action-button:active { transform: scale(0.97); }
-
-        .social-row {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            margin: 8px 0;
-        }
-
-        .social-btn {
-            width: 56px;
-            height: 56px;
-            border-radius: 16px;
-            background-color: var(--md-sys-color-surface);
-            color: var(--md-sys-color-on-surface);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            font-size: 24px;
-            transition: background-color 0.2s, transform 0.1s;
-        }
-
-        .social-btn:active { transform: scale(0.9); }
-
+        /* --- Факт --- */
         .fact-container {
             display: none; 
             background-color: var(--md-sys-color-surface);
             padding: 20px;
-            border-radius: var(--border-radius-large);
-            font-size: 16px;
-            line-height: 1.5;
-            border: 1px solid var(--md-sys-color-outline);
-            animation: slideUp 0.3s ease-out;
+            border-radius: var(--radius-xl);
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--md-sys-color-on-surface-variant);
+            border: none; /* Обводка убрана */
+            animation: m3-fade-in 0.4s cubic-bezier(0.2, 0, 0, 1);
         }
 
+        /* --- Соцсети и Смена темы --- */
+        .social-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin: 4px 0;
+        }
+
+        .social-btn {
+            flex: 1;
+            height: 56px;
+            background-color: var(--md-sys-color-secondary-container);
+            color: var(--md-sys-color-on-secondary-container);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-size: 22px;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-tg { border-radius: 24px var(--radius-xs) var(--radius-xs) 24px; }
+        .btn-tt { border-radius: var(--radius-xs) 24px 24px var(--radius-xs); }
+
+        .theme-toggle {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        /* --- Комментарии --- */
         .comments-section {
             background-color: var(--md-sys-color-surface);
             padding: 12px;
-            border-radius: var(--border-radius-large);
-            margin-top: 8px;
+            border-radius: var(--radius-xl);
+            border: none; /* Обводка убрана */
+            transition: background-color 0.3s ease;
         }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(10px); }
+        @keyframes m3-fade-in {
+            from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body>
+<body id="body">
 
     <div class="container">
         <div class="top-card">
             <div class="main-text">Шкебеде <span class="hashtag">#victim</span></div>
-            <div class="secondary-text">Material designer</div>
+            <div class="secondary-text">Material Designer</div>
             
             <div class="image-time-row">
                 <img src="avatarka.jpg" alt="Profile" class="profile-image">
-                
                 <div class="time-wrapper">
-                    <div class="time-label">местное время</div>
+                    <div class="time-label">Местное время</div>
                     <div class="local-time" id="timeDisplay">00.00.00</div>
                     <div class="warning-text" id="warningText">не писать!</div>
                 </div>
             </div>
         </div>
 
-        <button class="action-button" id="getFactBtn">Получить рандомный факт</button>
-
-        <div class="social-row">
-            <a href="https://t.me/Bozhechtozaidiot" target="_blank" class="social-btn"><i class="fa-brands fa-telegram"></i></a>
-            <a href="https://www.tiktok.com/@privet_gt" target="_blank" class="social-btn"><i class="fa-brands fa-tiktok"></i></a>
-        </div>
+        <button class="action-button" id="getFactBtn">Случайный факт</button>
 
         <div class="fact-container" id="factOutput"></div>
+
+        <div class="social-row">
+            <a href="https://t.me/Bozhechtozaidiot" target="_blank" class="social-btn btn-tg" title="Telegram">
+                <i class="fa-brands fa-telegram"></i>
+            </a>
+            <a href="https://www.tiktok.com/@privet_gt" target="_blank" class="social-btn btn-tt" title="TikTok">
+                <i class="fa-brands fa-tiktok"></i>
+            </a>
+            <button class="theme-toggle" id="themeToggle" title="Сменить тему">
+                <i class="fa-solid fa-palette"></i>
+            </button>
+        </div>
 
         <div class="comments-section">
             <script async src="https://comments.app/js/widget.js?3" 
@@ -217,65 +233,64 @@
         function updateTime() {
             const display = document.getElementById('timeDisplay');
             const warning = document.getElementById('warningText');
-            
             const now = new Date();
             const moscowTime = new Intl.DateTimeFormat('ru-RU', {
                 timeZone: 'Europe/Moscow',
-                hour: '2-digit', minute: '2-digit', second: '2-digit',
-                hour12: false
+                hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
             }).formatToParts(now);
-
             const h = moscowTime.find(p => p.type === 'hour').value;
             const m = moscowTime.find(p => p.type === 'minute').value;
             const s = moscowTime.find(p => p.type === 'second').value;
-
             display.textContent = `${h}.${m}.${s}`;
-
             const hourInt = parseInt(h);
             warning.style.display = (hourInt >= 0 && hourInt < 9) ? 'block' : 'none';
         }
-
         updateTime();
         setInterval(updateTime, 1000);
+
+        const themeBtn = document.getElementById('themeToggle');
+        const body = document.getElementById('body');
+
+        themeBtn.addEventListener('click', () => {
+            body.classList.toggle('light-theme');
+            const icon = themeBtn.querySelector('i');
+            if(body.classList.contains('light-theme')) {
+                icon.className = 'fa-solid fa-moon';
+            } else {
+                icon.className = 'fa-solid fa-palette';
+            }
+        });
 
         const factsList = [
             "Факт №1: \"Моча отбеливает зубы\" Сосницкий Д.И.",
             "Факт №8: \"Пузо беременных мужчин больше чем у дохлой бабки\" Вирусняк",
             "Факт №2: Сонуки мой брадар, просто знайте это", 
-            "Факт №9: Несмотря на расстояние в ≈3500км каймер смог подорвать жопу санечку",
+            "Факт №9: несмотря на расстояние в ≈3500км каймер смог подорвать жопу санечку",
             "Факт №3: Карасю пасиба, без него я бы не смог разобраться с этой хуйней",
             "Факт №4: Изначально я хотел брать домен, но гитхаб пейджс засейвил", 
             "Факт №5: Мне кажется, какой то из этих фактов - врёт🤔",
             "Факт №12: \"а 😢ещё🎉 я🥰 пидофил😎\" @Time1194",
             "Факт №13: Принесу пива, возьму в рот @TheSane4ek",
             "Факт №11: Длинные факты могут ломать интерфейс, особенно 10 факт",
-            "Факт №10: Ты долгое время был неактивен на сервере сочные 🏳️‍⚧️фембои 24/7! Все хорошо? Прошу отправить нам весть, что всё в порядке!",
-            "Факт №6: Скоро на этом сайте будут комментарии / p.s они уже есть, но я не буду убирать этот факт", 
+            "Факт №10: Ты долгое время был неактивен на сервере сочные 🏳️‍⚧️фембои 24/7!",
+            "Факт №6: Скоро на этом сайте будут комментарии / p.s они уже есть", 
             "Факт №7: Этот факт я написал после того как облился чаем"
         ];
 
         const btn = document.getElementById('getFactBtn');
         const output = document.getElementById('factOutput');
-        
-        // Массив для хранения индексов последних показанных фактов
         let lastIndices = [];
 
         btn.addEventListener('click', () => {
             output.style.display = 'none';
-            
             setTimeout(() => {
                 let randomIndex;
-                
-                // Генерируем новый индекс, пока он совпадает с кем-то из истории
                 do {
                     randomIndex = Math.floor(Math.random() * factsList.length);
                 } while (lastIndices.includes(randomIndex));
 
-                // Добавляем в историю и держим в ней только 2 последних элемента
                 lastIndices.push(randomIndex);
-                if (lastIndices.length > 2) {
-                    lastIndices.shift();
-                }
+                if (lastIndices.length > 2) lastIndices.shift();
 
                 output.textContent = factsList[randomIndex];
                 output.style.display = 'block';
@@ -284,3 +299,4 @@
     </script>
 </body>
 </html>
+
