@@ -240,7 +240,7 @@
 
         const factsList = [
             "Факт №1: \"Моча отбеливает зубы\" Сосницкий Д.И.",
-            "Факт №8: \"Пузо беременных мужчин больше вем у дохлой бабки\" Вирусняк",
+            "Факт №8: \"Пузо беременных мужчин больше чем у дохлой бабки\" Вирусняк",
             "Факт №2: Сонуки мой брадар, просто знайте это", 
             "Факт №9: несмотря на расстояние в ≈3500км каймер смог подорвать жопу санечку",
             "Факт №3: Карасю пасиба, без него я бы не смог разобраться с этой хуйней",
@@ -256,12 +256,28 @@
 
         const btn = document.getElementById('getFactBtn');
         const output = document.getElementById('factOutput');
+        
+        // Массив для хранения индексов последних показанных фактов
+        let lastIndices = [];
 
         btn.addEventListener('click', () => {
             output.style.display = 'none';
+            
             setTimeout(() => {
-                const randomFact = factsList[Math.floor(Math.random() * factsList.length)];
-                output.textContent = randomFact;
+                let randomIndex;
+                
+                // Генерируем новый индекс, пока он совпадает с кем-то из истории
+                do {
+                    randomIndex = Math.floor(Math.random() * factsList.length);
+                } while (lastIndices.includes(randomIndex));
+
+                // Добавляем в историю и держим в ней только 2 последних элемента
+                lastIndices.push(randomIndex);
+                if (lastIndices.length > 2) {
+                    lastIndices.shift();
+                }
+
+                output.textContent = factsList[randomIndex];
                 output.style.display = 'block';
             }, 300);
         });
