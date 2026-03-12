@@ -1,19 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <!-- Yandex.Metrika counter -->
-<script type="text/javascript">
-    (function(m,e,t,r,i,k,a){
-        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();
-        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107289566', 'ym');
-
-    ym(107289566, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/107289566" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>shkebede bio</title>
@@ -81,7 +68,25 @@
         .top-card {
             background-color: var(--md-sys-color-surface);
             padding: 28px;
+            /* Сверху сильно, снизу слабо закруглена */
             border-radius: var(--radius-main) var(--radius-main) var(--radius-small) var(--radius-small);
+            position: relative;
+        }
+
+        /* Глазик CounterAPI */
+        .counter-wrapper {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 500;
         }
 
         .main-text { font-size: 32px; font-weight: 500; margin-bottom: 2px; }
@@ -112,13 +117,14 @@
         .local-time { font-size: 36px; font-weight: 400; line-height: 1; }
         .warning-text { color: var(--md-sys-color-error); font-size: 12px; font-weight: 500; text-transform: uppercase; margin-top: 8px; display: none; }
 
-        /* --- Кнопка "Случайный факт" --- */
+        /* --- Кнопка факта --- */
         .action-button {
             width: 100%;
             padding: 20px;
             background-color: var(--md-sys-color-primary-container);
             color: var(--md-sys-color-on-primary-container);
             border: none;
+            /* Сверху слабо, снизу сильно закруглена */
             border-radius: var(--radius-small) var(--radius-small) var(--radius-main) var(--radius-main);
             font-size: 18px;
             font-family: 'Google Sans', sans-serif;
@@ -127,7 +133,7 @@
             transition: transform 0.1s;
         }
 
-        /* --- Нижний ряд --- */
+        /* --- Ряд кнопок --- */
         .bottom-row {
             display: flex;
             gap: 8px;
@@ -144,6 +150,7 @@
             align-items: center;
             text-decoration: none;
             font-size: 24px;
+            /* Справа слабо закруглена */
             border-radius: var(--radius-main) var(--radius-small) var(--radius-small) var(--radius-main);
         }
 
@@ -157,6 +164,7 @@
             align-items: center;
             text-decoration: none;
             font-size: 24px;
+            /* Слева слабо закруглена */
             border-radius: var(--radius-small) var(--radius-main) var(--radius-main) var(--radius-small);
         }
 
@@ -196,6 +204,11 @@
 
     <div class="container">
         <div class="top-card">
+            <div class="counter-wrapper">
+                <i class="fa-regular fa-eye"></i>
+                <span id="visitCount">...</span>
+            </div>
+
             <div class="main-text">Шкебеде <span class="hashtag">#victim</span></div>
             <div class="secondary-text">Material Designer</div>
             <div class="image-time-row">
@@ -221,6 +234,20 @@
     </div>
 
     <script>
+        // --- LOGIC: COUNTER API ---
+        async function updateCounter() {
+            try {
+                // Используем уникальный ID для твоего сайта
+                const response = await fetch('https://api.counterapi.dev/v1/shkebede_bio/visits/up');
+                const data = await response.json();
+                document.getElementById('visitCount').textContent = data.count;
+            } catch (e) {
+                document.getElementById('visitCount').textContent = '0';
+            }
+        }
+        updateCounter();
+
+        // --- LOGIC: TIME ---
         function updateTime() {
             const display = document.getElementById('timeDisplay');
             const warning = document.getElementById('warningText');
@@ -240,6 +267,7 @@
         updateTime();
         setInterval(updateTime, 1000);
 
+        // --- LOGIC: THEME & COMMENTS ---
         const commentsContainer = document.getElementById('comments-container');
         const themeToggle = document.getElementById('themeToggle');
         let isDark = true;
@@ -263,17 +291,17 @@
         });
         loadComments(true);
 
+        // --- LOGIC: RANDOM FACTS ---
         const factsList = [
             "Факт №1: \"Моча отбеливает зубы\" Сосницкий Д.И.",
             "Факт №8: \"Пузо беременных мужчин больше чем у дохлой бабки\" Вирусняк",
             "Факт №2: Сонуки мой брадар, просто знайте это", 
             "Факт №9: Несмотря на расстояние в ≈3500км каймер смог подорвать жопу санечку",
             "Факт №3: Карасю пасиба, без него я бы не смог разобраться с этой хуйней",
-            "Факт №14: Надеюсь когда я умру от старости, все мои друзья устроят оргию на моей могиле",
             "Факт №12: \"а 😢ещё🎉 я🥰 пидофил😎\" @Time1194",
             "Факт №13: Принесу пива, возьму в рот @TheSane4ek",
             "Факт №10: Ты долгое время был неактивен на сервере сочные 🏳️‍⚧️фембои 24/7!",
-            "Факт №6: Скоро на этом сайте будут комментарии", 
+            "Факт №6: Скоро на этом сайте будут комментарии / p.s. они тут уже есть, но факт я не уберу", 
             "Факт №7: Этот факт я написал после того как облился чаем"
         ];
 
