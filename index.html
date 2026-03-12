@@ -28,6 +28,7 @@
             --md-sys-color-primary-container: #4f378b;
             --md-sys-color-on-primary-container: #eaddff;
             --md-sys-color-error: #f2b8b5;
+            --comment-bg: #15202B; /* Цвет для темной темы комментариев */
             
             --radius-main: 28px;
             --radius-small: 8px; 
@@ -41,6 +42,7 @@
             --md-sys-color-primary-container: #eaddff;
             --md-sys-color-on-primary-container: #21005d;
             --md-sys-color-error: #b3261e;
+            --comment-bg: #FFFFFF; /* Цвет для светлой темы комментариев */
         }
 
         body {
@@ -64,16 +66,13 @@
             gap: 8px;
         }
 
-        /* --- Верхняя карточка --- */
         .top-card {
             background-color: var(--md-sys-color-surface);
             padding: 28px;
-            /* Сверху сильно, снизу слабо закруглена */
             border-radius: var(--radius-main) var(--radius-main) var(--radius-small) var(--radius-small);
             position: relative;
         }
 
-        /* Глазик CounterAPI */
         .counter-wrapper {
             position: absolute;
             top: 20px;
@@ -117,14 +116,12 @@
         .local-time { font-size: 36px; font-weight: 400; line-height: 1; }
         .warning-text { color: var(--md-sys-color-error); font-size: 12px; font-weight: 500; text-transform: uppercase; margin-top: 8px; display: none; }
 
-        /* --- Кнопка факта --- */
         .action-button {
             width: 100%;
             padding: 20px;
             background-color: var(--md-sys-color-primary-container);
             color: var(--md-sys-color-on-primary-container);
             border: none;
-            /* Сверху слабо, снизу сильно закруглена */
             border-radius: var(--radius-small) var(--radius-small) var(--radius-main) var(--radius-main);
             font-size: 18px;
             font-family: 'Google Sans', sans-serif;
@@ -133,7 +130,17 @@
             transition: transform 0.1s;
         }
 
-        /* --- Ряд кнопок --- */
+        /* Контейнер факта ПРЯМО под кнопкой */
+        .fact-container {
+            display: none;
+            background-color: var(--md-sys-color-surface);
+            padding: 20px;
+            border-radius: 24px;
+            line-height: 1.5;
+            animation: slideUp 0.3s ease-out;
+            margin-bottom: 4px;
+        }
+
         .bottom-row {
             display: flex;
             gap: 8px;
@@ -141,60 +148,39 @@
         }
 
         .social-btn.tg {
-            flex: 1;
-            height: 64px;
+            flex: 1; height: 64px;
             background-color: var(--md-sys-color-surface);
             color: var(--md-sys-color-on-surface);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            font-size: 24px;
-            /* Справа слабо закруглена */
+            display: flex; justify-content: center; align-items: center;
+            text-decoration: none; font-size: 24px;
             border-radius: var(--radius-main) var(--radius-small) var(--radius-small) var(--radius-main);
         }
 
         .social-btn.tt {
-            flex: 1;
-            height: 64px;
+            flex: 1; height: 64px;
             background-color: var(--md-sys-color-surface);
             color: var(--md-sys-color-on-surface);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            font-size: 24px;
-            /* Слева слабо закруглена */
+            display: flex; justify-content: center; align-items: center;
+            text-decoration: none; font-size: 24px;
             border-radius: var(--radius-small) var(--radius-main) var(--radius-main) var(--radius-small);
         }
 
         .theme-btn {
-            width: 64px;
-            height: 64px;
+            width: 64px; height: 64px;
             background-color: var(--md-sys-color-primary-container);
             color: var(--md-sys-color-on-primary-container);
-            border: none;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            cursor: pointer;
+            border: none; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 24px; cursor: pointer;
         }
 
-        .fact-container {
-            display: none;
-            background-color: var(--md-sys-color-surface);
-            padding: 20px;
-            border-radius: 24px;
-            animation: slideUp 0.3s ease-out;
-        }
-
+        /* Кастомизированный блок комментариев */
         .comments-section {
-            background-color: var(--md-sys-color-surface);
+            background-color: var(--comment-bg);
             padding: 12px;
             border-radius: 24px;
             min-height: 80px;
+            transition: background-color 0.3s ease;
         }
 
         @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -208,7 +194,6 @@
                 <i class="fa-regular fa-eye"></i>
                 <span id="visitCount">...</span>
             </div>
-
             <div class="main-text">Шкебеде <span class="hashtag">#victim</span></div>
             <div class="secondary-text">Material Designer</div>
             <div class="image-time-row">
@@ -223,31 +208,29 @@
 
         <button class="action-button" id="getFactBtn">Случайный факт</button>
 
+        <div class="fact-container" id="factOutput"></div>
+
         <div class="bottom-row">
             <a href="https://t.me/Bozhechtozaidiot" target="_blank" class="social-btn tg"><i class="fa-brands fa-telegram"></i></a>
             <a href="https://www.tiktok.com/@privet_gt" target="_blank" class="social-btn tt"><i class="fa-brands fa-tiktok"></i></a>
             <button class="theme-btn" id="themeToggle"><i class="fas fa-palette"></i></button>
         </div>
 
-        <div class="fact-container" id="factOutput"></div>
         <div id="comments-container" class="comments-section"></div>
     </div>
 
     <script>
-        // --- LOGIC: COUNTER API ---
+        // COUNTER API
         async function updateCounter() {
             try {
-                // Используем уникальный ID для твоего сайта
                 const response = await fetch('https://api.counterapi.dev/v1/shkebede_bio/visits/up');
                 const data = await response.json();
                 document.getElementById('visitCount').textContent = data.count;
-            } catch (e) {
-                document.getElementById('visitCount').textContent = '0';
-            }
+            } catch (e) { document.getElementById('visitCount').textContent = '0'; }
         }
         updateCounter();
 
-        // --- LOGIC: TIME ---
+        // TIME
         function updateTime() {
             const display = document.getElementById('timeDisplay');
             const warning = document.getElementById('warningText');
@@ -267,7 +250,7 @@
         updateTime();
         setInterval(updateTime, 1000);
 
-        // --- LOGIC: THEME & COMMENTS ---
+        // THEME & COMMENTS
         const commentsContainer = document.getElementById('comments-container');
         const themeToggle = document.getElementById('themeToggle');
         let isDark = true;
@@ -291,7 +274,7 @@
         });
         loadComments(true);
 
-        // --- LOGIC: RANDOM FACTS ---
+        // RANDOM FACTS
         const factsList = [
             "Факт №1: \"Моча отбеливает зубы\" Сосницкий Д.И.",
             "Факт №8: \"Пузо беременных мужчин больше чем у дохлой бабки\" Вирусняк",
